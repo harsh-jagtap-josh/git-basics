@@ -1,0 +1,656 @@
+PS D:\JOSH\GitBasics> rm file1.txt
+PS D:\JOSH\GitBasics> rm file2.txt
+PS D:\JOSH\GitBasics> git status
+On branch main
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    file1.txt
+        deleted:    file2.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS D:\JOSH\GitBasics> git add .
+PS D:\JOSH\GitBasics> git commit -m 'delete files'
+[main dd87e13] delete files
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 file1.txt
+ delete mode 100644 file2.txt
+PS D:\JOSH\GitBasics> git status
+On branch main
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> ls
+PS D:\JOSH\GitBasics> git checkout Feature1
+Switched to branch 'Feature1'
+PS D:\JOSH\GitBasics> ls
+
+
+    Directory: D:\JOSH\GitBasics
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        05-01-2025     19:05             32 file1.txt
+-a----        05-01-2025     19:05             32 file2.txt
+
+
+PS D:\JOSH\GitBasics> git checkout main
+Switched to branch 'main'
+PS D:\JOSH\GitBasics> git status
+On branch main
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> git checkout -b Feature2
+Switched to a new branch 'Feature2'
+PS D:\JOSH\GitBasics> git checkout Feature1
+Switched to branch 'Feature1'
+PS D:\JOSH\GitBasics> git branch -d Feature2
+error: The branch 'Feature2' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D Feature2'.
+PS D:\JOSH\GitBasics> git branch -D Feature2
+Deleted branch Feature2 (was dd87e13).
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> ls
+
+
+    Directory: D:\JOSH\GitBasics
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        05-01-2025     19:05             32 file1.txt
+-a----        05-01-2025     19:05             32 file2.txt
+
+
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file2.txt
+PS D:\JOSH\GitBasics> echo "This is File3" > file3.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file3.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS D:\JOSH\GitBasics> git add file3.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   file3.txt
+
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file2.txt
+file3.txt
+PS D:\JOSH\GitBasics> git commit -m 'add file3'
+[Feature1 c22ab94] add file3
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 file3.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file2.txt
+file3.txt
+PS D:\JOSH\GitBasics> rm file3.txt
+PS D:\JOSH\GitBasics> ls
+
+
+    Directory: D:\JOSH\GitBasics
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        05-01-2025     19:05             32 file1.txt
+-a----        05-01-2025     19:05             32 file2.txt
+
+
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file2.txt
+file3.txt
+PS D:\JOSH\GitBasics> git status -s
+ D file3.txt
+PS D:\JOSH\GitBasics> git add file3.txt
+PS D:\JOSH\GitBasics> git status -s
+D  file3.txt
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file2.txt
+PS D:\JOSH\GitBasics> git commit -m 'remove file'
+[Feature1 a56c755] remove file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 file3.txt
+PS D:\JOSH\GitBasics> type file2.txt
+This is file2
+PS D:\JOSH\GitBasics> echo "This is file2" > file3.txt
+PS D:\JOSH\GitBasics> git status -s
+?? file3.txt
+PS D:\JOSH\GitBasics> ls
+
+
+    Directory: D:\JOSH\GitBasics
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        05-01-2025     19:05             32 file1.txt
+-a----        05-01-2025     19:05             32 file2.txt
+-a----        05-01-2025     19:09             32 file3.txt
+
+
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file2.txt
+PS D:\JOSH\GitBasics> rm file2.txt
+PS D:\JOSH\GitBasics> git status -s
+ D file2.txt
+?? file3.txt
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file2.txt
+PS D:\JOSH\GitBasics> git add file3.txt
+PS D:\JOSH\GitBasics> git status -s
+ D file2.txt
+A  file3.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   file3.txt
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    file2.txt
+
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file2.txt
+file3.txt
+PS D:\JOSH\GitBasics> git add file2.txt
+PS D:\JOSH\GitBasics> git status -s
+R  file2.txt -> file3.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        renamed:    file2.txt -> file3.txt
+
+PS D:\JOSH\GitBasics> echo "This is a new file" > file4.txt
+PS D:\JOSH\GitBasics> echo "This is a new file" > file5.txt
+PS D:\JOSH\GitBasics> echo "This is a new file" > file1.txt
+PS D:\JOSH\GitBasics> type file1.txt
+This is a new file
+PS D:\JOSH\GitBasics> git status -s
+ M file1.txt
+R  file2.txt -> file3.txt
+?? file4.txt
+?? file5.txt
+PS D:\JOSH\GitBasics> git add file1.txt file4.txt
+PS D:\JOSH\GitBasics> git status -s
+M  file1.txt
+R  file2.txt -> file3.txt
+A  file4.txt
+?? file5.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   file1.txt
+        renamed:    file2.txt -> file3.txt
+        new file:   file4.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file5.txt
+
+PS D:\JOSH\GitBasics> git commit -m 'modify file1, add file4'
+[Feature1 a0e42c9] modify file1, add file4
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ rename file2.txt => file3.txt (100%)
+ create mode 100644 file4.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file5.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS D:\JOSH\GitBasics> git add file5.txt
+PS D:\JOSH\GitBasics> git commit -m 'add file5'
+[Feature1 4d6e76a] add file5
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 file5.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> git checkout -b "Feature2"
+Switched to a new branch 'Feature2'
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file4.txt
+file5.txt
+PS D:\JOSH\GitBasics> echo This is file 4 >> file4.txt
+PS D:\JOSH\GitBasics> git status -s
+ M file4.txt
+PS D:\JOSH\GitBasics> git checkout Feature1
+Switched to branch 'Feature1'
+M       file4.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file4.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS D:\JOSH\GitBasics> git checkout Feature2
+Switched to branch 'Feature2'
+M       file4.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature2
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file4.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS D:\JOSH\GitBasics> git add file4.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature2
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   file4.txt
+
+PS D:\JOSH\GitBasics> git checkout Feature1
+Switched to branch 'Feature1'
+M       file4.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   file4.txt
+
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   file4.txt
+
+PS D:\JOSH\GitBasics> git checkout Feature2
+Switched to branch 'Feature2'
+M       file4.txt
+PS D:\JOSH\GitBasics> git commit -m 'modify file4'
+[Feature2 caa212b] modify file4
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+PS D:\JOSH\GitBasics> git status
+On branch Feature2
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> git checkout Feature1
+Switched to branch 'Feature1'
+PS D:\JOSH\GitBasics> rm file4.txt
+PS D:\JOSH\GitBasics> git status -s
+ D file4.txt
+PS D:\JOSH\GitBasics> git add .
+PS D:\JOSH\GitBasics> git commit -m 'remove file4'
+[Feature1 03d29f6] remove file4
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 file4.txt
+PS D:\JOSH\GitBasics> git status -s
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file5.txt
+PS D:\JOSH\GitBasics> git checkout Feature2
+Switched to branch 'Feature2'
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file4.txt
+file5.txt
+PS D:\JOSH\GitBasics> git merge Feature1
+CONFLICT (modify/delete): file4.txt deleted in Feature1 and modified in HEAD.  Version HEAD of file4.txt left in tree.
+Automatic merge failed; fix conflicts and then commit the result.
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file4.txt
+file4.txt
+file5.txt
+PS D:\JOSH\GitBasics> type file4.txt
+This is a new file
+This
+is
+file
+4
+PS D:\JOSH\GitBasics> git status
+On branch Feature2
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add/rm <file>..." as appropriate to mark resolution)
+        deleted by them: file4.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS D:\JOSH\GitBasics> ls
+
+
+    Directory: D:\JOSH\GitBasics
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        05-01-2025     19:12             42 file1.txt
+-a----        05-01-2025     19:09             32 file3.txt
+-a----        05-01-2025     19:19             80 file4.txt
+-a----        05-01-2025     19:12             42 file5.txt
+
+
+PS D:\JOSH\GitBasics> rm file4.txt
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file4.txt
+file4.txt
+file5.txt
+PS D:\JOSH\GitBasics> git status -s
+UD file4.txt
+PS D:\JOSH\GitBasics> git add file4.txt
+PS D:\JOSH\GitBasics> git status -s
+D  file4.txt
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file5.txt
+PS D:\JOSH\GitBasics> git commit -m 'remove file4'
+[Feature2 7bddfdd] remove file4
+PS D:\JOSH\GitBasics>
+PS D:\JOSH\GitBasics> git status -s
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file5.txt
+PS D:\JOSH\GitBasics> ls
+
+
+    Directory: D:\JOSH\GitBasics
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----        05-01-2025     19:12             42 file1.txt
+-a----        05-01-2025     19:09             32 file3.txt
+-a----        05-01-2025     19:12             42 file5.txt
+
+
+PS D:\JOSH\GitBasics> git checkout Feature1
+Switched to branch 'Feature1'
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file5.txt
+PS D:\JOSH\GitBasics> git branch --all
+* Feature1
+  Feature2
+  main
+PS D:\JOSH\GitBasics> git branch -a
+* Feature1
+  Feature2
+  main
+PS D:\JOSH\GitBasics> git logs
+git: 'logs' is not a git command. See 'git --help'.
+
+The most similar command is
+        log
+PS D:\JOSH\GitBasics> git log
+commit 03d29f6af0fbcdef3f3154cc3329986cbfc7bf1c (HEAD -> Feature1)
+Author: harsh-jagtap-josh <harsh.jagtap@joshsoftware.com>
+Date:   Sun Jan 5 19:19:14 2025 +0530
+
+    remove file4
+
+commit 4d6e76aec5225ce78599da23d1da2ee38db5f7b8
+Author: harsh-jagtap-josh <harsh.jagtap@joshsoftware.com>
+Date:   Sun Jan 5 19:14:43 2025 +0530
+
+    add file5
+
+commit a0e42c90088a32eefcb3049ebcd07b2c2c4c6f23
+Author: harsh-jagtap-josh <harsh.jagtap@joshsoftware.com>
+Date:   Sun Jan 5 19:13:35 2025 +0530
+
+    modify file1, add file4
+
+commit a56c755b9560109065b8c197315a2567e4a6fe24
+Author: harsh-jagtap-josh <harsh.jagtap@joshsoftware.com>
+Date:   Sun Jan 5 19:08:40 2025 +0530
+
+    remove file
+
+commit c22ab94460835071e4f1b472398f80a6307f0621
+Author: harsh-jagtap-josh <harsh.jagtap@joshsoftware.com>
+Date:   Sun Jan 5 19:07:44 2025 +0530
+
+    add file3
+
+commit be23bf8607e1478fff219e78ea6e57a3d677fd93
+Author: harsh-jagtap-josh <harsh.jagtap@joshsoftware.com>
+Date:   Sun Jan 5 19:03:47 2025 +0530
+
+    add files
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> echo "This is a new file. hehe" > file6.txt
+PS D:\JOSH\GitBasics> echo "Hello This is file 1" >> file1.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file6.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS D:\JOSH\GitBasics> git add file6.txt
+PS D:\JOSH\GitBasics> git status -s
+ M file1.txt
+A  file6.txt
+PS D:\JOSH\GitBasics> git ls-files -s
+100644 ba13b4c7a6f206b01ff32c8252e3ce4cfc5914f4 0       file1.txt
+100644 78ce9aa403071132a1e9e6c0adad45ae7d31227c 0       file3.txt
+100644 ba13b4c7a6f206b01ff32c8252e3ce4cfc5914f4 0       file5.txt
+100644 76c91f371665106922d6115f809b272e1e909cd8 0       file6.txt
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file5.txt
+file6.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   file6.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+
+PS D:\JOSH\GitBasics> git stash
+Saved working directory and index state WIP on Feature1: 03d29f6 remove file4
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> git stash pop
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   file6.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+
+Dropped refs/stash@{0} (9386e466200cea081c691e8d3bbb81889a38b79e)
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   file6.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+
+PS D:\JOSH\GitBasics> git status -s
+ M file1.txt
+A  file6.txt
+PS D:\JOSH\GitBasics> git stash
+Saved working directory and index state WIP on Feature1: 03d29f6 remove file4
+PS D:\JOSH\GitBasics> git status -s
+PS D:\JOSH\GitBasics> echo "Here's a new file again :)" > file7.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file7.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS D:\JOSH\GitBasics> echo "Here's a new anotehr file.." > file8.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file7.txt
+        file8.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS D:\JOSH\GitBasics> git add file7.txt
+PS D:\JOSH\GitBasics>
+PS D:\JOSH\GitBasics> git status -s
+A  file7.txt
+?? file8.txt
+PS D:\JOSH\GitBasics> git stash pop
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   file6.txt
+        new file:   file7.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file8.txt
+
+Dropped refs/stash@{0} (18ce1a3c2145029f3886fd2464367f3b7b650567)
+PS D:\JOSH\GitBasics> git stash pop
+No stash entries found.
+PS D:\JOSH\GitBasics> git reset --hard
+HEAD is now at 03d29f6 remove file4
+PS D:\JOSH\GitBasics> git status -s
+?? file8.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file8.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file5.txt
+PS D:\JOSH\GitBasics> git add file8.txt
+PS D:\JOSH\GitBasics> git status -s
+A  file8.txt
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file3.txt
+file5.txt
+file8.txt
+PS D:\JOSH\GitBasics> git commit -m 'add file8'
+[Feature1 bda69a4] add file8
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 file8.txt
+PS D:\JOSH\GitBasics> git checkout main
+Switched to branch 'main'
+PS D:\JOSH\GitBasics> git checkout Feature1
+Switched to branch 'Feature1'
+PS D:\JOSH\GitBasics> rm file3.txt
+PS D:\JOSH\GitBasics> echo "Here is a little more text.." > file5.txt
+PS D:\JOSH\GitBasics> git status -s
+ D file3.txt
+ M file5.txt
+PS D:\JOSH\GitBasics> git add file3.txt
+PS D:\JOSH\GitBasics> git status -s
+D  file3.txt
+ M file5.txt
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file5.txt
+file8.txt
+PS D:\JOSH\GitBasics> git reset --soft
+PS D:\JOSH\GitBasics> git status -s
+D  file3.txt
+ M file5.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    file3.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file5.txt
+
+PS D:\JOSH\GitBasics> git revert --staged file3.txt
+fatal: bad revision 'file3.txt'
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    file3.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file5.txt
+
+PS D:\JOSH\GitBasics> git add file5.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    file3.txt
+        modified:   file5.txt
+
+PS D:\JOSH\GitBasics> git commit -m 'remove file3, modify file5'
+[Feature1 760f7c7] remove file3, modify file5
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 file3.txt
+PS D:\JOSH\GitBasics> git status
+On branch Feature1
+nothing to commit, working tree clean
+PS D:\JOSH\GitBasics> git ls-files
+file1.txt
+file5.txt
+file8.txt
+PS D:\JOSH\GitBasics>
